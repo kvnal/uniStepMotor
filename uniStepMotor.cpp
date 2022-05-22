@@ -1,3 +1,25 @@
+/**
+ * @file uniStepMotor.cpp
+ * @author github.com/kvnal
+ * @brief 
+ * @version 0.1
+ * @date 2022-05-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ * 
+ * 
+ * 
+ * cw/ccw
+ * revolution
+ * revolutionFirst
+ * 
+ * cw/ccw
+ * rotateFirst
+ * rotate
+ * 
+ */
+
 #include "uniStepMotor.h"
 
 UniStepMotor::UniStepMotor(int IN1_, int IN2_, int IN3_, int IN4_){
@@ -13,35 +35,63 @@ UniStepMotor::UniStepMotor(int IN1_, int IN2_, int IN3_, int IN4_){
     
 }
 
-void UniStepMotor::rotate(int degree){
 
-    if(micros()-lastTime >=1000){
-      lastTime = micros();  
-      stepCase(STEPS);
-      if(STEPS > 7) STEPS =0;
-      STEPS++;
-    }
+void UniStepMotor::setDirectionByValue(int value){
+  if(value>0)
+    setDirection(true);
+  else 
+    setDirection(false);
+
 }
 
-void UniStepMotor::rotateFirst(int degree){
-  int rev = 4096;
+void UniStepMotor::setDirection(bool clockwise){
+  DIRECTION = clockwise ? true : false;
+}
 
-  while(degree){
-  if(micros()-lastTime >=900){
-      lastTime = micros();  
-      stepCase(STEPS);
-      if(STEPS > 7) STEPS =0;
-      STEPS++;
-      rev--;
-    }
+void UniStepMotor::setSteps(){
+  if(DIRECTION) STEPS++;
+  if(!DIRECTION) STEPS--;
 
-    
-    if(rev==0){
-      degree--;
-      rev=4096;
+  if(STEPS<0) STEPS=7;
+  if(STEPS>7) STEPS=0;
+} 
+
+int UniStepMotor:: revolutionFirst(int no_of_rev){
+  
+  setDirectionByValue(no_of_rev);
+
+  int steps = STEPS_IN_ONE_REV * abs(no_of_rev);
+  
+  while(steps>=0){
+  if(micros()-LAST_TIME >= STEPS_INTERVAL_GAP){
+    LAST_TIME=micros();
+    stepCase(STEPS);
+    setSteps();
+    steps--;
     }
   }
+  stepCase(8); //off
+  return 1;
 }
+
+int UniStepMotor::rotateFirst(int degree){
+  setDirectionByValue(degree);
+
+  int steps = ((double) STEPS_IN_ONE_REV)/(360.0/abs(degree));  
+
+  while(steps){
+  if(micros()-LAST_TIME >=STEPS_INTERVAL_GAP){
+      LAST_TIME = micros();
+
+      stepCase(STEPS);
+      setSteps();
+      steps--;
+    }
+  }
+  stepCase(8); //off
+  return 1;
+}
+
 void UniStepMotor::stepCase(int steps){
   switch(steps){
      case 0:
