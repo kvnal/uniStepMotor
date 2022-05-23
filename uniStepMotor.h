@@ -13,13 +13,17 @@ class UniStepMotor{
 
     //async 
     int revolution(int no_of_rev);
+    int rotate(int degree);
 
     //states
     void stateStop();
     void stateContinue();
     void stateReset();
-    int getState();
     void stateResetAndStart();
+    int getState();
+
+    //calc
+    int degreeToSteps(int degree);
 
     private:
       int STEPS_INTERVAL_GAP = 1000; //900-1000 for speed
@@ -35,7 +39,7 @@ class UniStepMotor{
       bool DIRECTION = true;
       unsigned long LAST_TIME;
       
-      int MOTOR_STATE = -1;  // -1 stop, 0 assign value, 1 continue, 2 reset and start
+      int MOTOR_STATE = 0;  // -1 stop, 0 assign value, 1 continue, 2 reset and start
       
       unsigned int STEPS_COUNT =0;
 

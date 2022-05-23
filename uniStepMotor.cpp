@@ -86,17 +86,20 @@ int UniStepMotor::rotateFirst(int degree){
 
 
 int UniStepMotor::revolution(int no_of_rev){
+  if(MOTOR_STATE==-1) return  -1; //stop
+
   if(MOTOR_STATE==0 || MOTOR_STATE==2){
     //assign STEPS_COUNT
     setDirectionByValue(no_of_rev);
     STEPS_COUNT = STEPS_IN_ONE_REV * abs(no_of_rev);
 
     if(MOTOR_STATE==2) stateContinue();
+    else return -1; //reset but stop
   } 
   
   if(STEPS_COUNT==0){
     stateStop();
-    return -1; //stop
+    return -1; //steps done && stop
   }
 
   if(MOTOR_STATE==1){
@@ -114,12 +117,14 @@ int UniStepMotor::revolution(int no_of_rev){
 }
 
 int UniStepMotor::rotate(int degree){
+  if(MOTOR_STATE==-1) return  -1; //stop
   
-  if(MOTOR_STATE = 0 || MOTOR_STATE ==2){
+  if(MOTOR_STATE == 0 || MOTOR_STATE ==2){
     setDirectionByValue(degree);
     STEPS_COUNT = degreeToSteps(degree);
   
     if(MOTOR_STATE==2) stateContinue();
+    else return -10; // reset but stop..
   }
 
   if(STEPS_COUNT==0){
@@ -133,7 +138,7 @@ int UniStepMotor::rotate(int degree){
 
       stepCase(STEPS);
       setSteps();
-      STEPS--;
+      STEPS_COUNT--;
     }
     return 1;
   }
