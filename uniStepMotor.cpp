@@ -124,7 +124,7 @@ int UniStepMotor::rotate(int degree){
     STEPS_COUNT = degreeToSteps(degree);
   
     if(MOTOR_STATE==2) stateContinue();
-    else return -10; // reset but stop..
+    
   }
 
   if(STEPS_COUNT==0){
