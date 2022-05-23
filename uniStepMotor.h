@@ -7,11 +7,18 @@ class UniStepMotor{
   public:
     UniStepMotor(int IN1_ , int IN2_, int N3_, int IN4_);
 
+    //finish first
     int rotateFirst(int degree);
     int revolutionFirst(int no_of_rev);
+
+    //async 
+    int revolution(int no_of_rev);
+
+    //states
     void stateStop();
     void stateContinue();
     void stateReset();
+    int getState();
     void stateResetAndStart();
 
     private:
