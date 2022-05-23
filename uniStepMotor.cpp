@@ -2,7 +2,7 @@
  * @file uniStepMotor.cpp
  * @author github.com/kvnal
  * @brief 
- * @version 0.1
+ * @version 0.2
  * @date 2022-05-22
  * 
  * @copyright Copyright (c) 2022
@@ -10,13 +10,6 @@
  * 
  * 
  * 
- * cw/ccw
- * revolution
- * revolutionFirst
- * 
- * cw/ccw
- * rotateFirst
- * rotate
  * 
  */
 
@@ -88,8 +81,58 @@ int UniStepMotor::rotateFirst(int degree){
       steps--;
     }
   }
-  stepCase(8); //off
+  stateSTOP();
   return 1;
+}
+
+
+int UniStepMotor::revolution(int no_of_rev){
+  if(MOTOR_STATE==0 || MOTOR_STATE==2){
+    //assign STEPS_COUNT
+    setDirectionByValue(no_of_rev);
+    STEPS_COUNT = STEPS_IN_ONE_REV * abs(no_of_rev);
+
+    if(MOTOR_STATE==2) stateContinue();
+  } 
+  
+
+  if(MOTOR_STATE){
+    //START / CONTINUE
+    if(micros()-LAST_TIME >=STEPS_INTERVAL_GAP){
+      LAST_TIME = micros();
+      stepCase(STEPS);
+      setSteps();
+      STEPS_COUNT--;
+    }
+    return 1; //continue
+  }
+
+  if(STEPS_COUNT==0){
+    stateSTOP();
+    return -1; //stop
+  }
+}
+
+void UniStepMotor::stateSTOP(){
+  stepsCase(8);
+  MOTOR_STATE = -1;
+}
+
+void UniStepMotor::stateContinue(){
+  MOTOR_STATE = 1;
+}
+
+void UniStepMotor::stateReset(){
+  MOTOR_STATE=0;
+}
+
+void UniStepMotor::stateResetAndStart(){
+  MOTOR_STATE=2;
+}
+
+
+int UniStepMotor::getState(){
+  return MOTOR_STATE;
 }
 
 void UniStepMotor::stepCase(int steps){
