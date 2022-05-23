@@ -15,13 +15,14 @@ class UniStepMotor{
     int rotateFirst(int degree);
     int revolutionFirst(int no_of_rev);
 
-    //async
+    //async motion
     int moveStepper(); //return state
     int nonStopStepper(); //infinite move
 
     //async rotation 
     void setAngle(int degree);
     void setAngleAndContinue(int degree);
+    double getAngleLeft();
     
     //async revolution
     void setRevolution(int no_of_rev);
