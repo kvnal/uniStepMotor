@@ -11,16 +11,26 @@ class UniStepMotor{
     int rotateFirst(int degree);
     int revolutionFirst(int no_of_rev);
 
-    //async 
-    int revolution(int no_of_rev);
-    int rotate(int degree);
+    //async
+    int moveStepper();
+
+
+    //async rotation 
+    void setAngle(int degree);
+    void setAngleAndContinue(int degree);
+
+    
+    //async revolution
+
+    
+
 
     //states
-    void stateStop();
-    void stateContinue();
-    void stateReset();
-    void stateResetAndStart();
+    void setStateStop();
+    void setStateContinue();
+
     int getState();
+
 
     //calc
     int degreeToSteps(int degree);
