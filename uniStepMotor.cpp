@@ -54,7 +54,7 @@ double UniStepMotor::stepsToDegree(int steps){
 */
 
 void UniStepMotor::setStateContinue(){
-  motor_state = 1;
+  motor_state = step_count ? 1 : 0;
 }
 
 void UniStepMotor:: setStateStop(){
