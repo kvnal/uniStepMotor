@@ -12,8 +12,7 @@ class UniStepMotor{
 
 
     //finish first
-    int rotateFirst(int degree);
-    int revolutionFirst(int no_of_rev);
+    int moveStepperFirst();
 
     //async motion
     int moveStepper(); //return state

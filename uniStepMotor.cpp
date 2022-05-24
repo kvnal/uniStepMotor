@@ -28,6 +28,50 @@ UniStepMotor::UniStepMotor(int IN1_, int IN2_, int IN3_, int IN4_){
     
 }
 
+//configration
+void UniStepMotor::configRevSteps(int no_of_steps_in_1_rev){
+  STEPS_IN_ONE_REV = no_of_steps_in_1_rev;
+}
+
+
+//calc
+int UniStepMotor::degreeToSteps(int degree){
+  int steps = ((double) STEPS_IN_ONE_REV)/(360.0/abs(degree));
+  return steps;
+}
+
+
+double UniStepMotor::stepsToDegree(int steps){
+  return (double) 360.0/(STEPS_IN_ONE_REV/step_count); 
+}
+
+
+//states
+
+/*
+* 1 - continue/start/move
+* 0 - stop/pause
+*/
+
+void UniStepMotor::setStateContinue(){
+  motor_state = 1;
+}
+
+void UniStepMotor:: setStateStop(){
+  motor_state = 0;
+}
+
+int UniStepMotor::getState(){
+  return motor_state;
+}
+
+
+//additional info
+int UniStepMotor::getStepsLeft(){
+  return step_count;
+}
+
+
 
 void UniStepMotor::setDirectionByValue(int value){
   if(value>0)
@@ -41,7 +85,7 @@ void UniStepMotor::setDirection(bool clockwise){
   DIRECTION = clockwise ? true : false;
 }
 
-void UniStepMotor::setSteps(){
+void UniStepMotor::setStepDirection(){
   if(DIRECTION) STEPS++;
   if(!DIRECTION) STEPS--;
 
@@ -124,6 +168,7 @@ int UniStepMotor::rotate(int degree){
     STEPS_COUNT = degreeToSteps(degree);
   
     if(MOTOR_STATE==2) stateContinue();
+     
     
   }
 
@@ -146,10 +191,7 @@ int UniStepMotor::rotate(int degree){
   
 }
 
-int UniStepMotor::degreeToSteps(int degree){
-  int steps = ((double) STEPS_IN_ONE_REV)/(360.0/abs(degree));
-  return steps;
-}
+
 
 void UniStepMotor::stateStop(){
   stepCase(8);
