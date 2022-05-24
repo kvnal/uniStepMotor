@@ -59,6 +59,7 @@ void UniStepMotor::setStateContinue(){
 
 void UniStepMotor:: setStateStop(){
   motor_state = 0;
+  stepPinCase(8);
 }
 
 int UniStepMotor::getState(){
@@ -66,10 +67,6 @@ int UniStepMotor::getState(){
 }
 
 
-//additional info
-int UniStepMotor::getStepsLeft(){
-  return step_count;
-}
 
 
 //direction
@@ -204,124 +201,42 @@ void UniStepMotor::stepPinCase(int steps){
 }
 
 
-int UniStepMotor:: revolutionFirst(int no_of_rev){
-  
-  setDirectionByValue(no_of_rev);
+//get step count left func
+double UniStateMotor::getAngleLeft(){
+  return (double) 360.0*step_count/STEPS_IN_ONE_REV;
+}
 
-  int steps = STEPS_IN_ONE_REV * abs(no_of_rev);
-  
-  while(steps>=0){
-  if(micros()-LAST_TIME >= STEPS_INTERVAL_GAP){
-    LAST_TIME=micros();
-    stepCase(STEPS);
-    setSteps();
-    steps--;
+double UniStateMotor::getRevolutionLeft(){
+  return (double) step_count/STEPS_IN_ONE_REV;
+}
+
+int UniStepMotor::getStepsLeft(){
+  return step_count;
+}
+
+
+// take - move stepper motor
+void UniStepMotor::completeStepsFirst(){
+  if(motor_state==1){
+    while(step_count){
+      if(micros()-last_time>=STEPS_INTERVAL_GAP){
+        last_time = micros();
+        stepPinCase(step_for_step_pin_case);
+        setStepForStepPinCase();
+        step_count--;
+      }
     }
   }
-  stepCase(8); //off
-  return 1;
 }
 
-int UniStepMotor::rotateFirst(int degree){
-  setDirectionByValue(degree);
-  int steps = degreeToSteps(degree);
+int UniStepMotor::takeSteps(){
+  if(motor_state==0) return 0; //stopped or steps completed;
 
-  while(steps){
-  if(micros()-LAST_TIME >=STEPS_INTERVAL_GAP){
-      LAST_TIME = micros();
-
-      stepCase(STEPS);
-      setSteps();
-      steps--;
-    }
+  if(micros()-last_time >= STEPS_INTERVAL_GAP){
+    last_time=micros();
+    stepPinCase(step_for_step_pin_case);
+    setStepForStepPinCase();
+    step_count--;
   }
-  stateStop();
-  return 1;
-}
-
-
-int UniStepMotor::revolution(int no_of_rev){
-  if(MOTOR_STATE==-1) return  -1; //stop
-
-  if(MOTOR_STATE==0 || MOTOR_STATE==2){
-    //assign STEPS_COUNT
-    setDirectionByValue(no_of_rev);
-    STEPS_COUNT = STEPS_IN_ONE_REV * abs(no_of_rev);
-
-    if(MOTOR_STATE==2) stateContinue();
-    else return -1; //reset but stop
-  } 
-  
-  if(STEPS_COUNT==0){
-    stateStop();
-    return -1; //steps done && stop
-  }
-
-  if(MOTOR_STATE==1){
-    //START / CONTINUE
-    if(micros()-LAST_TIME >=STEPS_INTERVAL_GAP){
-      LAST_TIME = micros();
-      stepCase(STEPS);
-      setSteps();
-      STEPS_COUNT--;
-    }
-    return 1; //continue
-  }
-
-  
-}
-
-int UniStepMotor::rotate(int degree){
-  if(MOTOR_STATE==-1) return  -1; //stop
-  
-  if(MOTOR_STATE == 0 || MOTOR_STATE ==2){
-    setDirectionByValue(degree);
-    STEPS_COUNT = degreeToSteps(degree);
-  
-    if(MOTOR_STATE==2) stateContinue();
-     
-    
-  }
-
-  if(STEPS_COUNT==0){
-    stepCase(8);
-    return -1;
-  }
-
-  if(MOTOR_STATE==1){
-    if(micros()-LAST_TIME>=STEPS_INTERVAL_GAP){
-      LAST_TIME = micros();
-
-      stepCase(STEPS);
-      setSteps();
-      STEPS_COUNT--;
-    }
-    return 1;
-  }
-  
-  
-}
-
-
-
-void UniStepMotor::stateStop(){
-  stepCase(8);
-  MOTOR_STATE = -1;
-}
-
-void UniStepMotor::stateContinue(){
-  MOTOR_STATE = 1;
-}
-
-void UniStepMotor::stateReset(){
-  MOTOR_STATE=0;
-}
-
-void UniStepMotor::stateResetAndStart(){
-  MOTOR_STATE=2;
-}
-
-
-int UniStepMotor::getState(){
-  return MOTOR_STATE;
+  return 1; //moving
 }

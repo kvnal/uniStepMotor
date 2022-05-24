@@ -12,11 +12,11 @@ class UniStepMotor{
 
 
     //finish first
-    int moveStepperFirst();
+    int completeStepsFirst();
 
     //async motion
-    int moveStepper(); //return state
-    int nonStopStepper(); //infinite move
+    int takeSteps(); //return state
+    int takeNonStopSteps(); //infinite move
 
     //async rotation 
     void setAngle(int degree);
@@ -31,14 +31,14 @@ class UniStepMotor{
     //async step move
     void setSteps(int no_of_steps);
     void setStepsAndContinue(int no_of_steps);
+    int getStepsLeft(); //return step_count
 
     
     //direction
     void setDirection(int clockwise); // 1 for cw 0 ccw;
     int getDirection(); //return direction
 
-    //additional info
-    int getStepsLeft(); //return step_count
+  
 
     //states
     void setStateStop();
