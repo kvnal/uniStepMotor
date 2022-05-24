@@ -233,7 +233,7 @@ void UniStepMotor::completeStepsFirst(){
 
 int UniStepMotor::takeSteps(){
   if(motor_state==0 || step_count==0){  
-    stepPinCase(8);
+    setStateStop();
     return 0; //stopped or steps completed;
   }
 
