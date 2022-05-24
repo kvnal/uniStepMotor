@@ -60,9 +60,9 @@ class UniStepMotor{
       int IN3;
       int IN4;
       
-      int step_for_stepcase = 0; // 0-7 for switch step case 
+      int step_for_step_pin_case = 0; // 0-7 for switch step case 
 
-      bool direction = true;
+      bool direction = true;  // true - cw
       unsigned long last_time;
       
       int motor_state = 0;  // 1 move 0 stop
@@ -71,8 +71,8 @@ class UniStepMotor{
 
 
       //func
-      void stepCase(int steps); //stepper pin controller
-      void setMicroStepDirection(); //steps for step case
+      void stepPinCase(int steps); //stepper pin controller
+      void setStepForStepPinCase(); //steps for step case
       void setDirectionByValue(int value);
       
 };
