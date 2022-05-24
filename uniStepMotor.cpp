@@ -207,7 +207,7 @@ double UniStateMotor::getAngleLeft(){
 }
 
 double UniStateMotor::getRevolutionLeft(){
-  return (double) step_count/STEPS_IN_ONE_REV;
+  return ((double) step_count)/STEPS_IN_ONE_REV;
 }
 
 int UniStepMotor::getStepsLeft(){
@@ -230,7 +230,7 @@ void UniStepMotor::completeStepsFirst(){
 }
 
 int UniStepMotor::takeSteps(){
-  if(motor_state==0) return 0; //stopped or steps completed;
+  if(motor_state==0 || step_count==0) return 0; //stopped or steps completed;
 
   if(micros()-last_time >= STEPS_INTERVAL_GAP){
     last_time=micros();
@@ -239,4 +239,14 @@ int UniStepMotor::takeSteps(){
     step_count--;
   }
   return 1; //moving
+}
+
+int UniStepMotor::takeNonStopSteps(){
+  if(motor_state == 0) return 0; //stop
+  if(micros()-last_time >= STEPS_INTERVAL_GAP){
+    last_time = micros();
+    stepPinCase(step_for_step_pin_case);
+    setStepForStepPinCase();
+  }
+  return 1;
 }
