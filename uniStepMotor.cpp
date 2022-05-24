@@ -217,6 +217,7 @@ int UniStepMotor::getStepsLeft(){
 
 // take - move stepper motor
 void UniStepMotor::completeStepsFirst(){
+
   if(motor_state==1){
     while(step_count){
       if(micros()-last_time>=STEPS_INTERVAL_GAP){
@@ -226,11 +227,15 @@ void UniStepMotor::completeStepsFirst(){
         step_count--;
       }
     }
+    stepPinCase(8);
   }
 }
 
 int UniStepMotor::takeSteps(){
-  if(motor_state==0 || step_count==0) return 0; //stopped or steps completed;
+  if(motor_state==0 || step_count==0){  
+    stepPinCase(8);
+    return 0; //stopped or steps completed;
+  }
 
   if(micros()-last_time >= STEPS_INTERVAL_GAP){
     last_time=micros();
