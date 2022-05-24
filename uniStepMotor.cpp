@@ -202,11 +202,11 @@ void UniStepMotor::stepPinCase(int steps){
 
 
 //get step count left func
-double UniStateMotor::getAngleLeft(){
+double UniStepMotor::getAngleLeft(){
   return (double) 360.0*step_count/STEPS_IN_ONE_REV;
 }
 
-double UniStateMotor::getRevolutionLeft(){
+double UniStepMotor::getRevolutionLeft(){
   return ((double) step_count)/STEPS_IN_ONE_REV;
 }
 

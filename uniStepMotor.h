@@ -12,7 +12,7 @@ class UniStepMotor{
 
 
     //finish first
-    int completeStepsFirst();
+    void completeStepsFirst();
 
     //async motion
     int takeSteps(); //return state
@@ -36,14 +36,14 @@ class UniStepMotor{
     
     //direction
     void setDirection(int clockwise); // 1 for cw 0 ccw;
-    int getDirection(); //return direction
+    int getDirection();
 
   
 
     //states
     void setStateStop();
     void setStateContinue();
-    int getState();  // return state
+    int getState(); 
 
 
     //calc func
