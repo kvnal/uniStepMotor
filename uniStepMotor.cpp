@@ -247,6 +247,7 @@ int UniStepMotor::takeSteps(){
 }
 
 int UniStepMotor::takeNonStopSteps(){
+  step_count=1; //conflict with continue state
   if(motor_state == 0) return 0; //stop
   if(micros()-last_time >= STEPS_INTERVAL_GAP){
     last_time = micros();
