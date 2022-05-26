@@ -1,0 +1,26 @@
+# class
+
+UniStepMotor	KEYWORD1
+
+# methods & functions
+
+configRevSteps	KEYWORD2
+completeStepsFirst	KEYWORD2
+takeSteps	KEYWORD2
+takeNonStopSteps	KEYWORD2
+setAngle	KEYWORD2
+setAngleAndContinue	KEYWORD2
+getAngleLeft	KEYWORD2
+setRevolution	KEYWORD2
+setRevolutionAndContinue	KEYWORD2
+getRevolutionLeft	KEYWORD2
+setSteps	KEYWORD2
+setStepsAndContinue	KEYWORD2
+getStepsLeft	KEYWORD2
+setDirection	KEYWORD2
+getDirection	KEYWORD2
+setStateStop	KEYWORD2
+setStateContinue	KEYWORD2
+getState	KEYWORD2
+degreeToSteps	KEYWORD2
+stepsToDegree	KEYWORD2
