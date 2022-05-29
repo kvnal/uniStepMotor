@@ -33,6 +33,14 @@ void UniStepMotor::configRevSteps(int no_of_steps_in_1_rev){
   STEPS_IN_ONE_REV = no_of_steps_in_1_rev;
 }
 
+void UniStepMotor::enableFullStepping(){
+ full_stepping = true;
+}
+
+void UniStepMotor::disableFullStepping(){
+ full_stepping = false;
+}
+
 
 //calc
 int UniStepMotor::degreeToSteps(int degree){
@@ -127,8 +135,14 @@ void UniStepMotor::setStepsAndContinue(int no_of_steps){
 
 //pin handling
 void UniStepMotor::setStepForStepPinCase(){
+
   if(direction) step_for_step_pin_case++;
   if(!direction) step_for_step_pin_case--;
+
+  if(full_stepping && step_for_step_pin_case%2==0){
+    if(direction) step_for_step_pin_case++;
+    if(!direction) step_for_step_pin_case--;
+  }
 
   if(step_for_step_pin_case<0) step_for_step_pin_case=7;
   if(step_for_step_pin_case>7) step_for_step_pin_case=0;

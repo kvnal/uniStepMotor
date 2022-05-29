@@ -5,6 +5,8 @@ UniStepMotor	KEYWORD1
 # methods & functions
 
 configRevSteps	KEYWORD2
+enableFullStepping	KEYWORD2
+disableFullStepping	KEYWORD2
 completeStepsFirst	KEYWORD2
 takeSteps	KEYWORD2
 takeNonStopSteps	KEYWORD2

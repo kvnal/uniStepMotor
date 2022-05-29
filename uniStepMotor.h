@@ -9,7 +9,8 @@ class UniStepMotor{
 
     //config
     void configRevSteps(int no_of_steps_in_1_rev); //default 4096
-
+    void enableFullStepping();
+    void disableFullStepping();
 
     //finish first
     void completeStepsFirst();
@@ -69,7 +70,7 @@ class UniStepMotor{
       
       unsigned int step_count =0;
 
-
+      bool full_stepping = false;
       //func
       void stepPinCase(int steps); //stepper pin controller
       void setStepForStepPinCase(); //steps for step case
