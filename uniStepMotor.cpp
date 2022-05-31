@@ -35,10 +35,12 @@ void UniStepMotor::configRevSteps(int no_of_steps_in_1_rev){
 
 void UniStepMotor::enableFullStepping(){
  full_stepping = true;
+ STEPS_INTERVAL_GAP = 1200; // stable for full stepping
 }
 
 void UniStepMotor::disableFullStepping(){
  full_stepping = false;
+ STEPS_INTERVAL_GAP = 1000; // stable for half stepping
 }
 
 
@@ -101,14 +103,16 @@ void UniStepMotor::setDirectionByValue(int value){
 
 
 //set step_count 
+
 void UniStepMotor::setAngle(int degree){
   setDirectionByValue(degree);
-  step_count = degreeToSteps(abs(degree));
+  
+  step_count = degreeToSteps(abs(full_stepping ? degree/2 : degree));
 }
 
 void UniStepMotor::setRevolution(int no_of_rev){
   setDirectionByValue(no_of_rev);
-  step_count = STEPS_IN_ONE_REV * abs(no_of_rev);
+  step_count = STEPS_IN_ONE_REV * abs(full_stepping ? no_of_rev : no_of_rev/2);
 }
 
 void UniStepMotor::setSteps(int no_of_steps){

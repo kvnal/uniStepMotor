@@ -53,7 +53,7 @@ class UniStepMotor{
 
 
     private:
-      int STEPS_INTERVAL_GAP = 1000; //900-1000 for speed
+      int STEPS_INTERVAL_GAP = 1000; //900-1000 for speed (half-stepping) 1100-1200 (full-stepping)
       int STEPS_IN_ONE_REV = 4096; // (360/step angle(5.625) * reduction ratio(64))
 
       int IN1;
@@ -75,6 +75,7 @@ class UniStepMotor{
       void stepPinCase(int steps); //stepper pin controller
       void setStepForStepPinCase(); //steps for step case
       void setDirectionByValue(int value);
+      void checkAndSetStepsForFullStepping();
       
 };
 #endif
