@@ -53,7 +53,7 @@ class UniStepMotor{
 
 
     private:
-      int STEPS_INTERVAL_GAP = 1000; //900-1000 for speed (half-stepping) 1100-1200 (full-stepping)
+      int STEPS_INTERVAL_GAP = 1000; //900-1000 for speed (half-stepping) 1200-1300 (full-stepping)
       int STEPS_IN_ONE_REV = 4096; // (360/step angle(5.625) * reduction ratio(64))
 
       int IN1;
