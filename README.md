@@ -1,56 +1,115 @@
-#Documenation
+_Arduino Device Control Library_
+## 28BYJ-48 Stepper Motor (_unipolar_)
+> Allows Arduino boards to control a one or more of stepper motors.
+> 
+> This library can control one or more steppers both asynchronously and synchronously. It includes various state management methods for controlling multiple stepper motors individually, as well as methods for setting angles, revolutions, number of steps, and motor direction.
 
-__Installation__
+<br>
+#### Releases
+To use this library, open the **Library Manager** in the Arduino IDE and install it from there. OR
+< < manual installation >>
 
+- 1.0.0 (latest)
 
-__circuit diagram__
+<br>
 
+## Usage
+To use this library:
+```cpp
+#include<uniStepMotor.h>
+```
 
-#### 1. Import Library
-```#include<uniStepMotor.h>```
+#### circuit
+<< circuit img here >>
+
+<br>
+
+#### Examples
+<< examples here >>
+<br>
+
+#### 1. Initiate Stepper Motor
+
+```cpp
+UniStepMotor = myStepper(int IN1, int IN2, int IN3, int IN4);
+``` 
+Parameters
+: - **_mystepper_**: a object variable of type ```UniStepMotor```
+: - **_IN1 - IN4_**: Arduino board pin connected from [ULN2003]() Driver Module's output PIN from  IN1 - IN4. 
+
+<br>
   
-#### 2. Initiate Stepper Motor
-```UniStepMotor = myStepper(int IN1, int IN2, int IN3, int IN4);``` 
-  <br>
 
-  _example:_
+#### 2. Stepper motor 1 revolution steps configration *(optional)*
+```cpp
+myStepper.configRevSteps(int no_of_steps_in_1_rev);
+```
 
-    UniStepMotor = myStepper1(8,9,10,11);
-    
-    //*driver name**'s pin for IN1 to IN4 is connected to 8 to 11 on arduino board*
-    
-<br>
-
-#### 3. Stepper motor configration *(optional)*
-
-_configration required only if half stepping steps differs_
-
-__default__ pre-configured at __4096__
-
-_configure by calling:_ ```myStepper.configRevSteps(int no_of_steps_in_1_rev);```
+__By default__ its configured at __4096__ steps. [How to calculate no. of steps in one revolution?]()
 
 
 <br>
-#### 4. Full-Stepping configration
-to enable/disable full stepping
 
+## Methods
+#### 1. Full-Stepping
+> To enable or disable [full-stepping]() in stepper motor.
+
+__By default__ its configured as [half-stepping]() at __4096__ steps.
+
+```cpp
     myStepper.enableFullStepping(); // to enable
     myStepper.disableFullStepping(); // to disable
+```
 
-
-_note: stepper will take 1/2 of total steps if full stepping is enabled. i.e by default **2048** (4096÷2) steps in one revolution_
+_**note**: No. of steps will be reduced to 1/2 of no. of steps it takes in half-stepping. i.e **by default: **2048** steps in one revolution_
 
 __when to use?__
-when you need speed (faster revolution) and can compromise precision angle of the stepper.
+when you need speed and can compromise precision angle of the stepper.
 
 <br>
 
-#### 5. Motor States
-In this library motor is divided into two states - 
-- **Continue / moving**  _(denoted by int value 1)_
-- **Stop / pause** _(denoted by int value 0)
-  
+#### 2. Motor States
+> Get current state or control motor working using methods below.
 
+In this library their are two types of motor states:
 
+Start or Moving
+: denoted by ```int value 1```
 
+Stopped or paused
+: denoted by ```int value 0```
+
+**Methods()**
+
+_Get state of motor (moving or stopped)_ 
+```cpp
+  myStepper.getState()
+  ```
+**Returns**
+**int value 1** : when motor is moving.
+**int value 0** : when motor is not moving. It could be motor have completed its no. or steps of its state being stopped using ```setStateStop()```.
+
+<br>
+
+_Set States of motor_
+
+```cpp
+  myStepper.setStateContinue() // to start motor
+  ```
+```cpp
+   myStepper.setStateStop() // to pause moving motor
+   ```
+
+<br>
+
+##### Example
+get 
+```cpp
+
+```
+emergency stop - on pressing button stop motor
+change direction after one revolution
+working without stopping below code functionality 
+working with two or more motors at same time
+start motor 2 steps after motor 1 completed its steps.
 
