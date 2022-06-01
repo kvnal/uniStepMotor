@@ -160,7 +160,6 @@ void UniStepMotor::stepPinCase(int steps){
   * 0-7 clockwise
   * 7-0 counter clockwise
   */
-
   switch(steps){
      case 0:
        digitalWrite(IN1, LOW); 
