@@ -9,6 +9,7 @@ _Arduino Device Control Library_
 To use this library, open the **Library Manager** in the Arduino IDE and install it from there. OR
 < < manual installation >>
 
+
 - 1.0.0 (latest)
 
 <br>
@@ -66,6 +67,7 @@ _**note**: No. of steps will be reduced to 1/2 of no. of steps it takes in half-
 __when to use?__
 when you need speed and can compromise precision angle of the stepper.
 
+
 <br>
 
 #### 2. Motor States
@@ -79,9 +81,10 @@ Start or Moving
 Stopped or paused
 : denoted by ```int value 0```
 
+
 **Methods()**
 
-_Get state of motor (moving or stopped)_ 
+- _Get state of motor (moving or stopped)_ 
 ```cpp
   myStepper.getState()
   ```
@@ -91,7 +94,7 @@ _Get state of motor (moving or stopped)_
 
 <br>
 
-_Set States of motor_
+- _Set States of motor_
 
 ```cpp
   myStepper.setStateContinue() // to start motor
@@ -102,10 +105,95 @@ _Set States of motor_
 
 <br>
 
+#### 3. Revolutions
+> Set no. of revolutions perform by the motor.
+
+**Methods()**
+- set revolution
+    
+  ```cpp
+  myStepper.setRevolution(int no_of_Revolutions);
+  ```
+
+- set revolution and put motor in continue state.
+  ```cpp
+  myStepper.setRevolutionAndContinue(int no_of_Revolutions);
+  ```
+
+- get number of revolutions left by the motor.
+  ```cpp
+  myStepper.getRevolutionLeft();
+  ```
+  **Returns**
+  **double (datatype value)** : no of revolutions left is **_no_of_steps_left / no_of_steps_in_1_revolution_**.
+
+
+<br>
+
+
+#### 4. Angle
+>Set angle in degree to perform by stepper motor.
+
+
+**Methods()**
+- set angle
+  ```cpp
+  myStepper.setAngle(int degree);
+  ```
+- set angle and put motor in continue state.
+  ```cpp
+  myStepper.setAngleAndContinue(int degree);
+  ```
+- get no of degree left that needs to perfomed by the motor.
+  ```cpp
+  myStepper.getAngleLeft();
+  ```
+  **Returns**
+  no. of angle in degree left in **double datatype** from setAngle() or setAngleAndContinue().
+
+<br>
+
+#### 5. Steos
+>Set steps to be perform by stepper motor.
+
+
+**Methods()**
+- set steps
+  ```cpp
+  myStepper.setSteps(int no_of_steps);
+  ```
+- set steps and put motor in continue state.
+  ```cpp
+  myStepper.setStepsAndContinue(int no_of_steps);
+  ```
+- get no of Steps left that needs to perfomed by the motor.
+  (*__Note__ : ```myStepper.getStepsLeft();``` could be with revolutions or angle methods() too* )
+  ```cpp
+  myStepper.getStepsLeft();
+  ```
+  **Returns**
+  **int (datatype value)**
+
+
+<br>
+
+#### 1. title
+>short desc
+
+**Methods()**
+- method 1 heading
+  ```cpp
+  code.code();
+  ```
+  
+**Returns**
+**return 1** : explain
+
+
 ##### Example
 get 
 ```cpp
-
+ 
 ```
 emergency stop - on pressing button stop motor
 change direction after one revolution
