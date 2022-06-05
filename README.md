@@ -52,7 +52,7 @@ __By default__ its configured at __4096__ steps. [How to calculate no. of steps 
 <br>
 
 ## Methods
-#### 1. Full-Stepping
+#### 1. Full-Stepping <sup>BETA</sup>
 > To enable or disable [full-stepping]() in stepper motor.
 
 __By default__ its configured as [half-stepping]() at __4096__ steps.
@@ -62,7 +62,9 @@ __By default__ its configured as [half-stepping]() at __4096__ steps.
     myStepper.disableFullStepping(); // to disable
 ```
 
-_**note**: No. of steps will be reduced to 1/2 of no. of steps it takes in half-stepping. i.e **by default: **2048** steps in one revolution_
+_**Note**: No. of steps will be reduced to 1/2 of no. of steps it takes in half-stepping. i.e **by default: **2048** steps in one revolution_
+
+**⚠ Note** : full-stepping is currently in beta stage. i might not perform like its expected to be.
 
 __when to use?__
 when you need speed and can compromise precision angle of the stepper.
@@ -153,7 +155,7 @@ Stopped or paused
 
 <br>
 
-#### 5. Steos
+#### 5. Steps
 >Set steps to be perform by stepper motor.
 
 
@@ -177,6 +179,43 @@ Stopped or paused
 
 <br>
 
+#### 6. Perform stepping (motion)
+>put stepper motor in to perfrom steps.
+
+>**_Consider it like a car_**: you must first insert the keys, rotate the key to start the engine, and then accelerate the cars using the paddle. Similarly, you must first set the angle/revolutions or steps to be performed by the stepper motor, then put the motor in a continuous state, and then take steps (it could be async or sync depending on the method you use below).
+
+**Methods()**
+- **Synchronous** - Complete all the steps first. _note: it stops the below code/sketch functionality._
+  
+  example:
+  ```cpp
+  
+  ```
+
+- **Asynchronous** - used when you need to perform other operations in the code/sketch as well.
+-  Take steps
+  example:
+  ```cpp
+  
+  ```
+
+-  Take infinte steps.
+  example:
+  ```cpp
+  
+  ```
+
+  all the async functions ***returns*** the state of the motor i.e 1 for continue state, 0 for stop/paused states
+ 
+
+##### Example
+get 
+```cpp
+ 
+```
+
+<br>
+
 #### 1. title
 >short desc
 
@@ -188,7 +227,7 @@ Stopped or paused
   
 **Returns**
 **return 1** : explain
-
+ 
 
 ##### Example
 get 
