@@ -126,10 +126,15 @@ Stopped or paused
   ```cpp
   myStepper.getRevolutionLeft();
   ```
+  **note**: directions of motor will depend on the value in the arguments i.e -ve value will lead to counter-clockwise direction, while +ve will lead motor to clockwise direction. also, motor direction could be controlled dynamically by using Direction methods stated further in the documentation.
+
+  <br>
+
   **Returns**
   **double (datatype value)** : no of revolutions left is **_no_of_steps_left / no_of_steps_in_1_revolution_**.
 
-
+  <br>
+  
 <br>
 
 
@@ -216,17 +221,43 @@ get
 
 <br>
 
-#### 1. title
->short desc
+#### 7. Directions
+>Get or set stepper motor direction.
 
 **Methods()**
-- method 1 heading
+- set direction
+  ```cpp
+  code.code();
+  ```
+ 
+- get direction
   ```cpp
   code.code();
   ```
   
-**Returns**
-**return 1** : explain
+  **Returns**
+  **return 1** : explain
+ 
+
+#### 7. Calculation helpers
+>perfrom various calculation using convertors provided it the library.
+
+**Methods()**
+- degree to steps
+  ```cpp
+  code.code();
+  ```
+  
+  **Returns**
+  **return 1** : explain
+ 
+- steps to degree
+  ```cpp
+  code.code();
+  ```
+  
+  **Returns**
+  **return 1** : explain
  
 
 ##### Example
