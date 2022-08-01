@@ -20,14 +20,12 @@ To use this library:
 #include<uniStepMotor.h>
 ```
 
-#### circuit
-<< circuit img here >>
+#### Circuit diagram
+![img](https://www.makerguides.com/wp-content/uploads/2019/04/28BYJ-48-Stepper-Motor-ULN2003-Driver-Wiring-Diagram-Schematic-Pinout-1024x482.jpg)
 
 <br>
 
-#### Examples
-<< examples here >>
-<br>
+
 
 #### 1. Initiate Stepper Motor
 
@@ -36,7 +34,7 @@ UniStepMotor = myStepper(int IN1, int IN2, int IN3, int IN4);
 ``` 
 Parameters
 : - **_mystepper_**: a object variable of type ```UniStepMotor```
-: - **_IN1 - IN4_**: Arduino board pin connected from [ULN2003]() Driver Module's output PIN from  IN1 - IN4. 
+: - **_IN1 - IN4_**: Arduino board pin connected from [ULN2003](https://robu.in/product/uln2003-driver-module-stepper-motor-driver-board/) Driver Module's output PIN from  IN1 - IN4. 
 
 <br>
   
@@ -46,16 +44,16 @@ Parameters
 myStepper.configRevSteps(int no_of_steps_in_1_rev);
 ```
 
-__By default__ its configured at __4096__ steps. [How to calculate no. of steps in one revolution?]()
+__By default__ its configured at __4096__ steps. [How to calculate no. of steps in one revolution?](https://lastminuteengineers.com/28byj48-stepper-motor-arduino-tutorial/#:~:text=According%20to%20the%20data%20sheet,%2F11.25%C2%B0%20%3D%2032)
 
 
 <br>
 
 ## Methods
 #### 1. Full-Stepping <sup>BETA</sup>
-> To enable or disable [full-stepping]() in stepper motor.
+> To enable or disable [full-stepping](https://www.youtube.com/watch?v=cYAPK7xoISE) in stepper motor.
 
-__By default__ its configured as [half-stepping]() at __4096__ steps.
+__By default__ its configured as [half-stepping](https://www.youtube.com/watch?v=cYAPK7xoISE) at __4096__ steps.
 
 ```cpp
     myStepper.enableFullStepping(); // to enable
@@ -174,7 +172,7 @@ Stopped or paused
   myStepper.setStepsAndContinue(int no_of_steps);
   ```
 - get no of Steps left that needs to perfomed by the motor.
-  (*__Note__ : ```myStepper.getStepsLeft();``` could be with revolutions or angle methods() too* )
+  (*__Note__ : ```myStepper.getStepsLeft();``` could be called (used) with revolutions or angle methods() too* )
   ```cpp
   myStepper.getStepsLeft();
   ```
@@ -232,6 +230,7 @@ get
  
 - get direction
   ```cpp
+  
   code.code();
   ```
   
